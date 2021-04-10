@@ -53,7 +53,7 @@
                     </div>
                     <nav class="menu">
                         <ul class="sidebar-menu metismenu" id="sidebar-menu">
-                            <li class="active">
+                            <li>
                                 <a href="index.html">
                                     <i class="fa fa-home"></i>Import Dataset</a>
                             </li>
@@ -66,13 +66,13 @@
                             </li>
                             
                             
-                                  <li>
+                            <li > 
                                 <a href="forms.html">
                                     <i class="fa fa-sticky-note"></i>Evaluasi</a>
                             </li>
                             
                             
-                                  <li>
+                                  <li class="active">
                                 <a href="forms.html">
                                     <i class="fa fa-sticky-note"></i>Klasifikasi</a>
                             </li>
@@ -90,16 +90,30 @@
             <div class="content dashboard-page">
                 
                <div style="margin-bottom:25px">
-                    <h1>Import Dataset</h1>
-                    <div style="margin-top:10px;display:flex;flex-direction:row;align-items: center;">
-                        <input type="file" style="width:250px">
-                        <div id="btnImport" class="opacity_dimmed" style="background-color:#85ce36;cursor:pointer;color:white;justify-content: center;align-items: center;display: flex;padding:5px 10px">
-                            Import
+                    <h1>Klasifikasi</h1>
+                    <div style="margin-top:15px;margin-bottom:15px">
+                        <p>Melakukan uji klasifikasi pada model yang telah dibangun...</p>
+                    
+                    </div>
+                    <div style="margin-top:10px;display:flex;flex-direction:column">
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Example select</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                        <div id="btnImport" class="opacity_dimmed" style="width:fit-content;background-color:#85ce36;cursor:pointer;color:white;justify-content: center;align-items: center;display: flex;padding:5px 10px">
+                            Evaluasi
                         </div>
                     </div>
-               </div>
-               <div>
-                    <table class="tableCustom" id="table"></table>
                </div>
                 
             </div>
@@ -200,66 +214,6 @@
     <script src="https://modularcode.io/modular-admin-html/js/app.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
     <script>
-        $('#table').bootstrapTable({
-        columns: [{
-            field: 'id',
-            title: 'id'
-        }, {
-            field: 'gender',
-            title: 'Gender'
-        }, {
-            field: 'age',
-            title: 'Age'
-        },
-        {
-            field: 'hypertension',
-            title: 'Hypertension'
-        },
-        {
-            field: 'heart_disease',
-            title: 'Heart Disease'
-        },
-        {
-            field: 'ever_married',
-            title: 'Ever Married'
-        },
-        {
-            field: 'work_type',
-            title: 'Work Type'
-        },
-        {
-            field: 'Residence_type',
-            title: 'Residence Type'
-        },
-        {
-            field: 'avg_glucose_level',
-            title: 'Average Glucose Level'
-        },
-        {
-            field: 'bmi',
-            title: 'BMI'
-        },
-        {
-            field: 'smoking_status',
-            title: 'Smoking'
-        },
-        {
-            field: 'stroke',
-            title: 'Stroke'
-        }],
-        data: [{
-            id: 1,
-            name: 'Item 1',
-            price: '$1'
-        }, {
-            id: 2,
-            name: 'Item 2',
-            price: '$2'
-        }]
-        })
-
-        document.querySelector("#btnImport").addEventListener("click",()=>{
-            alert("123");
-        })
+    
     </script>
 <input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;"><div class="responsive-bootstrap-toolkit"><div class="device-xs 				  hidden-sm-up"></div><div class="device-sm hidden-xs-down hidden-md-up"></div><div class="device-md hidden-sm-down hidden-lg-up"></div><div class="device-lg hidden-md-down hidden-xl-up"></div><div class="device-xl hidden-lg-down			  "></div></div><div class="jqvmap-label" style="display: none;"></div><div class="jqvmap-label" style="display: none;"></div></body></html>

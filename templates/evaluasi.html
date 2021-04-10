@@ -53,7 +53,7 @@
                     </div>
                     <nav class="menu">
                         <ul class="sidebar-menu metismenu" id="sidebar-menu">
-                            <li class="active">
+                            <li>
                                 <a href="index.html">
                                     <i class="fa fa-home"></i>Import Dataset</a>
                             </li>
@@ -66,7 +66,7 @@
                             </li>
                             
                             
-                                  <li>
+                            <li class="active"> 
                                 <a href="forms.html">
                                     <i class="fa fa-sticky-note"></i>Evaluasi</a>
                             </li>
@@ -90,16 +90,19 @@
             <div class="content dashboard-page">
                 
                <div style="margin-bottom:25px">
-                    <h1>Import Dataset</h1>
+                    <h1>Evaluasi</h1>
+                    <div style="margin-top:15px;margin-bottom:15px">
+                        <p>Evaluasi model decision tree dengan membagi dataset menjadi 90% training dan 10% testing dan menghitung akurasi yang didapatkan...</p>
+                    
+                    </div>
                     <div style="margin-top:10px;display:flex;flex-direction:row;align-items: center;">
-                        <input type="file" style="width:250px">
                         <div id="btnImport" class="opacity_dimmed" style="background-color:#85ce36;cursor:pointer;color:white;justify-content: center;align-items: center;display: flex;padding:5px 10px">
-                            Import
+                            Evaluasi
                         </div>
                     </div>
                </div>
                <div>
-                    <table class="tableCustom" id="table"></table>
+                    <table class="tableCustom table-responsive" id="table"></table>
                </div>
                 
             </div>
@@ -204,12 +207,6 @@
         columns: [{
             field: 'id',
             title: 'id'
-        }, {
-            field: 'gender',
-            title: 'Gender'
-        }, {
-            field: 'age',
-            title: 'Age'
         },
         {
             field: 'hypertension',
@@ -220,18 +217,6 @@
             title: 'Heart Disease'
         },
         {
-            field: 'ever_married',
-            title: 'Ever Married'
-        },
-        {
-            field: 'work_type',
-            title: 'Work Type'
-        },
-        {
-            field: 'Residence_type',
-            title: 'Residence Type'
-        },
-        {
             field: 'avg_glucose_level',
             title: 'Average Glucose Level'
         },
@@ -240,13 +225,58 @@
             title: 'BMI'
         },
         {
-            field: 'smoking_status',
-            title: 'Smoking'
+            field: 'stroke',
+            title: 'Stroke'
+        },
+        {
+            field: 'gender__Male',
+            title: 'Gender Male'
+        },
+        {
+            field: 'gender__Other',
+            title: 'Gender Other'
+        },
+        {
+            field: 'ever_married__Yes',
+            title: 'Ever Married - Yes'
+        },
+        {
+            field: 'Residence_type__Urban',
+            title: 'Residence Type - Urban'
+        },
+        {
+            field: 'smoking_status__formerly',
+            title: 'Smoking Status - Formerly'
+        },
+        {
+            field: 'smoking_status__never smoked',
+            title: 'Smoking Status - Never Smoked'
+        },
+        {
+            field: 'smoking_status__smokes',
+            title: 'Smoking Status - Smokes'
+        },
+        {
+            field: 'work_type__Never_worked',
+            title: 'Smoking Status - Never Worked'
+        },
+        {
+            field: 'work_type__Private',
+            title: 'Smoking Status - Private'
+        },
+        {
+            field: 'work_type__Self-employed',
+            title: 'Smoking Status - Self-Employed'
+        },
+        {
+            field: 'work_type__children',
+            title: 'Smoking Status - Children'
         },
         {
             field: 'stroke',
             title: 'Stroke'
-        }],
+        },
+        ],
         data: [{
             id: 1,
             name: 'Item 1',
