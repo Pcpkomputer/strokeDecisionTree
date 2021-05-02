@@ -53,27 +53,27 @@
                     </div>
                     <nav class="menu">
                         <ul class="sidebar-menu metismenu" id="sidebar-menu">
-                            <li>
-                                <a href="index.html">
+                            <li >
+                                <a href="/">
                                     <i class="fa fa-home"></i>Import Dataset</a>
                             </li>
                             
                             
                             
                             <li>
-                                <a href="forms.html">
+                                <a href="preprocessing">
                                     <i class="fa fa-cogs"></i>Preprocessing </a>
                             </li>
                             
                             
-                            <li > 
-                                <a href="forms.html">
+                                  <li >
+                                <a href="evaluasi">
                                     <i class="fa fa-sticky-note"></i>Evaluasi</a>
                             </li>
                             
                             
-                                  <li class="active">
-                                <a href="forms.html">
+                                  <li  class="active">
+                                <a href="klasifikasi">
                                     <i class="fa fa-sticky-note"></i>Klasifikasi</a>
                             </li>
                             
@@ -88,7 +88,17 @@
             <div class="sidebar-mobile-menu-handle" id="sidebar-mobile-menu-handle"></div>
             <div class="mobile-menu-handle"></div>
             <div class="content dashboard-page">
-                
+                <!-- Gender
+                Age
+                Hypertension
+                Heart Disease
+                Ever Married
+                Work Type
+                Residence Type
+                Average Glucose Level
+                BMI
+                Smoking
+                Stroke -->
                <div style="margin-bottom:25px">
                     <h1>Klasifikasi</h1>
                     <div style="margin-top:15px;margin-bottom:15px">
@@ -97,19 +107,75 @@
                     </div>
                     <div style="margin-top:10px;display:flex;flex-direction:column">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            <label for="exampleFormControlSelect1">Gender</label>
+                            <select class="form-control" id="selectGender">
+                              <option>Male</option>
+                              <option>Female</option>
+                              <option>Other</option>
+                           
+                            </select>
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlSelect1">Example select</label>
-                            <select class="form-control" id="exampleFormControlSelect1">
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
+                            <label for="exampleFormControlSelect1">Age</label>
+                            <input type="number" class="form-control" id="exampleFormControlSelect1">
+                            </input>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Hypertension</label>
+                            <select class="form-control" id="selectGender">
+                              <option>Yes</option>
+                              <option>No</option>
                             </select>
-                          </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Heart Disease</label>
+                            <select class="form-control" id="selectGender">
+                              <option>Yes</option>
+                              <option>No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Ever Married</label>
+                            <select class="form-control" id="selectGender">
+                              <option>Yes</option>
+                              <option>No</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Work Type</label>
+                            <select class="form-control" id="selectGender">
+                              <option>Private</option>
+                              <option>Self-employed</option>
+                              <option>Self-employed</option>
+                              <option>Never Worked</option>
+                              <option>Children</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Residence Type</label>
+                            <select class="form-control" id="selectGender">
+                              <option>Urban</option>
+                              <option>Rural</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Average Glucose Level</label>
+                            <input type="number" class="form-control" id="exampleFormControlSelect1">
+                            </input>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">BMI</label>
+                            <input type="number" class="form-control" id="exampleFormControlSelect1">
+                            </input>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Smoking Status</label>
+                            <select class="form-control" id="selectGender">
+                              <option>Formerly Smoked</option>
+                              <option>Never Smoked</option>
+                              <option>Smokes</option>
+                            </select>
+                        </div>
                         <div id="btnImport" class="opacity_dimmed" style="width:fit-content;background-color:#85ce36;cursor:pointer;color:white;justify-content: center;align-items: center;display: flex;padding:5px 10px">
                             Evaluasi
                         </div>

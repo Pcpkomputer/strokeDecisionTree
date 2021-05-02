@@ -54,26 +54,26 @@
                     <nav class="menu">
                         <ul class="sidebar-menu metismenu" id="sidebar-menu">
                             <li class="active">
-                                <a href="index.html">
+                                <a href="/">
                                     <i class="fa fa-home"></i>Import Dataset</a>
                             </li>
                             
                             
                             
                             <li>
-                                <a href="forms.html">
+                                <a href="preprocessing">
                                     <i class="fa fa-cogs"></i>Preprocessing </a>
                             </li>
                             
                             
                                   <li>
-                                <a href="forms.html">
+                                <a href="evaluasi">
                                     <i class="fa fa-sticky-note"></i>Evaluasi</a>
                             </li>
                             
                             
                                   <li>
-                                <a href="forms.html">
+                                <a href="klasifikasi">
                                     <i class="fa fa-sticky-note"></i>Klasifikasi</a>
                             </li>
                             
@@ -89,15 +89,15 @@
             <div class="mobile-menu-handle"></div>
             <div class="content dashboard-page">
                 
-               <div style="margin-bottom:25px">
+               <form id="formSubmitFile" enctype="multipart/form-data" action="" method="POST" style="margin-bottom:25px">
                     <h1>Import Dataset</h1>
                     <div style="margin-top:10px;display:flex;flex-direction:row;align-items: center;">
-                        <input type="file" style="width:250px">
+                        <input id="fileDataset" name="dataset" type="file" style="width:250px">
                         <div id="btnImport" class="opacity_dimmed" style="background-color:#85ce36;cursor:pointer;color:white;justify-content: center;align-items: center;display: flex;padding:5px 10px">
                             Import
                         </div>
                     </div>
-               </div>
+                </form>
                <div>
                     <table class="tableCustom" id="table"></table>
                </div>
@@ -200,7 +200,12 @@
     <script src="https://modularcode.io/modular-admin-html/js/app.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
     <script>
+
+        let data = {{data | safe}}
+
         $('#table').bootstrapTable({
+        pagination:true,
+        height:500,
         columns: [{
             field: 'id',
             title: 'id'
@@ -216,23 +221,23 @@
             title: 'Hypertension'
         },
         {
-            field: 'heart_disease',
+            field: 'heart disease',
             title: 'Heart Disease'
         },
         {
-            field: 'ever_married',
+            field: 'ever married',
             title: 'Ever Married'
         },
         {
-            field: 'work_type',
+            field: 'work type',
             title: 'Work Type'
         },
         {
-            field: 'Residence_type',
+            field: 'residence type',
             title: 'Residence Type'
         },
         {
-            field: 'avg_glucose_level',
+            field: 'average glucose level',
             title: 'Average Glucose Level'
         },
         {
@@ -240,26 +245,21 @@
             title: 'BMI'
         },
         {
-            field: 'smoking_status',
+            field: 'smoking',
             title: 'Smoking'
         },
         {
             field: 'stroke',
             title: 'Stroke'
         }],
-        data: [{
-            id: 1,
-            name: 'Item 1',
-            price: '$1'
-        }, {
-            id: 2,
-            name: 'Item 2',
-            price: '$2'
-        }]
+        data: data
         })
 
         document.querySelector("#btnImport").addEventListener("click",()=>{
-            alert("123");
+            if(document.querySelector("#fileDataset").files.length>0){
+                document.querySelector("#formSubmitFile").submit();
+            }
+            
         })
     </script>
 <input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;"><div class="responsive-bootstrap-toolkit"><div class="device-xs 				  hidden-sm-up"></div><div class="device-sm hidden-xs-down hidden-md-up"></div><div class="device-md hidden-sm-down hidden-lg-up"></div><div class="device-lg hidden-md-down hidden-xl-up"></div><div class="device-xl hidden-lg-down			  "></div></div><div class="jqvmap-label" style="display: none;"></div><div class="jqvmap-label" style="display: none;"></div></body></html>
