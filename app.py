@@ -3,6 +3,10 @@ import pandas as pd
 import json
 import mysql.connector
 import numpy as np
+from sklearn.model_selection import StratifiedKFold
+from sklearn.impute import KNNImputer
+from sklearn.tree import *
+from sklearn.metrics import f1_score
 
 app = Flask(__name__)
 
@@ -168,8 +172,87 @@ def preprocessing():
 
     return render_template("preprocessing.html", data=json.dumps(data))
 
-@app.route("/evaluasi")
+@app.route("/evaluasi", methods=["GET","POST"])
 def evaluasi():
+    if request.method=="POST":
+        mydb.connect()
+        cursor = mydb.cursor()
+        cursor.execute("SELECT * FROM dataset")
+        dataset = cursor.fetchall()
+        cursor.close()
+        mydb.close()
+
+        dataframe = pd.DataFrame(dataset, columns=["gender","age","hypertension","heart_disease","ever_married","work_type","Residence_type","avg_glucose_level","bmi","smoking_status","stroke"])
+        
+        dataframe["bmi"] = dataframe["bmi"].replace([-1],np.nan)
+
+        cat = ['gender','ever_married','Residence_type','smoking_status','work_type']
+        for i in cat:
+            dummy = pd.get_dummies(dataframe[i],drop_first=True,prefix=f"{i}_")
+            dataframe = pd.concat([dataframe,dummy],axis=1)
+
+        dataframe = dataframe.drop([*cat],axis=1)
+
+        X = dataframe.drop('stroke',axis=1).values
+        y = dataframe['stroke'].values
+
+        skf = StratifiedKFold(n_splits=5)
+        skf.get_n_splits(X, y)
+
+        kfold = []
+
+        for train_index, test_index in skf.split(X, y):
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+            
+            imputer = KNNImputer(n_neighbors=2)
+            X_train = imputer.fit_transform(X_train)
+            X_test = imputer.fit_transform(X_test)
+            
+            clf = DecisionTreeClassifier()
+            clf.fit(X_train, y_train)
+            y_pred = clf.predict(X_test)
+            f = f1_score(y_true = y_test , y_pred = y_pred,average = 'weighted')
+
+            payload = []
+            
+            for index, fold in enumerate(X_test):
+                payload.append([*fold,y_test[index],y_pred[index]])
+
+            kfold.append(payload);
+
+        
+        json_ = []
+
+        for item in kfold:
+            p = []
+            for x in item:
+                p.append(
+                    {
+                        "age":int(x[0]),
+                        "hypertension":float(x[1]),
+                        "heart_disease":int(x[2]),
+                        "avg_glucose_level":float(x[3]),
+                        "bmi":float(x[4]),
+                        "gender__Male":int(x[5]),
+                        "gender__Other":int(x[6]),
+                        "ever_married__Yes":int(x[7]),
+                        "Residence_type__Urban":int(x[8]),
+                        "smoking_status__formerly smoked":int(x[9]),
+                        "smoking_status__never smoked":int(x[10]),
+                        "smoking_status__smokes":int(x[11]),
+                        "work_type__Never_worked":int(x[12]),
+                        "work_type__Private":int(x[13]),
+                        "work_type__Self-employed":int(x[14]),
+                        "work_type__children":int(x[15]),
+                        "actual":int(x[16]),
+                        "predicted":int(x[17])
+                    }
+                )
+            json_.append(p)
+
+
+        return render_template("evaluasi.html",payload=enumerate(json_),testing=json_)
     return render_template("evaluasi.html")
 
 @app.route("/klasifikasi")

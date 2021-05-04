@@ -89,20 +89,57 @@
             <div class="mobile-menu-handle"></div>
             <div class="content dashboard-page">
                 
-               <div style="margin-bottom:25px">
+               <div style="margin-bottom:50px">
                     <h1>Evaluasi</h1>
                     <div style="margin-top:15px;margin-bottom:15px">
                         <p>Evaluasi model decision tree dengan membagi dataset menggunakan metode "Stratifield K-Fold" dengan Fold berjumlah 5</p>
                     
                     </div>
-                    <div style="margin-top:10px;display:flex;flex-direction:row;align-items: center;">
-                        <div id="btnImport" class="opacity_dimmed" style="background-color:#85ce36;cursor:pointer;color:white;justify-content: center;align-items: center;display: flex;padding:5px 10px">
+                    <form action="" method="POST" id="formEvaluasi" style="margin-top:10px;display:flex;flex-direction:row;align-items: center;">
+                        <div id="btnEvaluasi" class="opacity_dimmed" style="background-color:#85ce36;cursor:pointer;color:white;justify-content: center;align-items: center;display: flex;padding:5px 10px">
                             Evaluasi
                         </div>
-                    </div>
+                    </form>
                </div>
                <div>
-                    <table class="tableCustom table-responsive" id="table"></table>
+                    {%for index, table in payload%}
+                        <div style="margin-bottom:30px">
+                            <h1>Fold {{index+1}}</h1>
+                            <table class="tableCustom table-responsive" id="table-{{index}}">
+                                <thead>
+                                    <tr>
+                                      <th>Age</th>
+                                      <th>Hypertension</th>
+                                      <th>Heart Disease</th>
+                                      <th>Average Glucose Level</th>
+                                      <th>BMI</th>
+                                      <th>Gender Male</th>
+                                      <th>Gender Other</th>
+                                      <th>Ever Married - Yes</th>
+                                      <th>Residence Type - Urban</th>
+                                      <th>Smoking Status - Formerly</th>
+                                      <th>Smoking Status - Never Smoked</th>
+                                      <th>Smoking Status - Smokes</th>
+                                      <th>Smoking Status - Never Worked</th>
+                                      <th>Smoking Status - Private</th>
+                                      <th>Smoking Status - Self-Employed</th>
+                                      <th>Smoking Status - Children</th>
+                                      <th>Actual</th>
+                                      <th>Predicted</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {% for row in table%}
+                                        <tr>
+                                            <td>{{row["age"]}}</td>
+                                            <td>Item 1</td>
+                                            <td>$1</td>
+                                        </tr>
+                                    {%endfor%}
+                                  </tbody>
+                            </table>
+                        </div>
+                    {%endfor%}
                </div>
                 
             </div>
@@ -203,93 +240,10 @@
     <script src="https://modularcode.io/modular-admin-html/js/app.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
     <script>
-        $('#table').bootstrapTable({
-        columns: [{
-            field: 'id',
-            title: 'id'
-        },
-        {
-            field: 'hypertension',
-            title: 'Hypertension'
-        },
-        {
-            field: 'heart_disease',
-            title: 'Heart Disease'
-        },
-        {
-            field: 'avg_glucose_level',
-            title: 'Average Glucose Level'
-        },
-        {
-            field: 'bmi',
-            title: 'BMI'
-        },
-        {
-            field: 'stroke',
-            title: 'Stroke'
-        },
-        {
-            field: 'gender__Male',
-            title: 'Gender Male'
-        },
-        {
-            field: 'gender__Other',
-            title: 'Gender Other'
-        },
-        {
-            field: 'ever_married__Yes',
-            title: 'Ever Married - Yes'
-        },
-        {
-            field: 'Residence_type__Urban',
-            title: 'Residence Type - Urban'
-        },
-        {
-            field: 'smoking_status__formerly',
-            title: 'Smoking Status - Formerly'
-        },
-        {
-            field: 'smoking_status__never smoked',
-            title: 'Smoking Status - Never Smoked'
-        },
-        {
-            field: 'smoking_status__smokes',
-            title: 'Smoking Status - Smokes'
-        },
-        {
-            field: 'work_type__Never_worked',
-            title: 'Smoking Status - Never Worked'
-        },
-        {
-            field: 'work_type__Private',
-            title: 'Smoking Status - Private'
-        },
-        {
-            field: 'work_type__Self-employed',
-            title: 'Smoking Status - Self-Employed'
-        },
-        {
-            field: 'work_type__children',
-            title: 'Smoking Status - Children'
-        },
-        {
-            field: 'stroke',
-            title: 'Stroke'
-        },
-        ],
-        data: [{
-            id: 1,
-            name: 'Item 1',
-            price: '$1'
-        }, {
-            id: 2,
-            name: 'Item 2',
-            price: '$2'
-        }]
-        })
+        $('#table-0').bootstrapTable({height:300,})
 
-        document.querySelector("#btnImport").addEventListener("click",()=>{
-            alert("123");
+        document.querySelector("#btnEvaluasi").addEventListener("click",()=>{
+            document.querySelector("#formEvaluasi").submit();
         })
     </script>
 <input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;"><div class="responsive-bootstrap-toolkit"><div class="device-xs 				  hidden-sm-up"></div><div class="device-sm hidden-xs-down hidden-md-up"></div><div class="device-md hidden-sm-down hidden-lg-up"></div><div class="device-lg hidden-md-down hidden-xl-up"></div><div class="device-xl hidden-lg-down			  "></div></div><div class="jqvmap-label" style="display: none;"></div><div class="jqvmap-label" style="display: none;"></div></body></html>
