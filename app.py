@@ -200,6 +200,7 @@ def evaluasi():
         skf.get_n_splits(X, y)
 
         kfold = []
+        fscore = []
 
         for train_index, test_index in skf.split(X, y):
             X_train, X_test = X[train_index], X[test_index]
@@ -220,6 +221,7 @@ def evaluasi():
                 payload.append([*fold,y_test[index],y_pred[index]])
 
             kfold.append(payload);
+            fscore.append(f)
 
         
         json_ = []
@@ -252,7 +254,7 @@ def evaluasi():
             json_.append(p)
 
 
-        return render_template("evaluasi.html",payload=enumerate(json_),testing=json_)
+        return render_template("evaluasi.html",payload=enumerate(json_),testing=json_,fscore=fscore)
     return render_template("evaluasi.html")
 
 @app.route("/klasifikasi")

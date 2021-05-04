@@ -105,6 +105,7 @@
                     {%for index, table in payload%}
                         <div style="margin-bottom:30px">
                             <h1>Fold {{index+1}}</h1>
+                            <h2>F-Score : {{fscore[index]}}</h2>
                             <table class="tableCustom table-responsive" id="table-{{index}}">
                                 <thead>
                                     <tr>
@@ -132,8 +133,23 @@
                                     {% for row in table%}
                                         <tr>
                                             <td>{{row["age"]}}</td>
-                                            <td>Item 1</td>
-                                            <td>$1</td>
+                                            <td>{{row["hypertension"]}}</td>
+                                            <td>{{row["heart_disease"]}}</td>
+                                            <td>{{row["avg_glucose_level"]}}</td>
+                                            <td>{{row["bmi"]}}</td>
+                                            <td>{{row["gender__Male"]}}</td>
+                                            <td>{{row["gender__Other"]}}</td>
+                                            <td>{{row["ever_married__Yes"]}}</td>
+                                            <td>{{row["Residence_type__Urban"]}}</td>
+                                            <td>{{row["smoking_status__formerly smoked"]}}</td>
+                                            <td>{{row["smoking_status__never smoked"]}}</td>
+                                            <td>{{row["smoking_status__smokes"]}}</td>
+                                            <td>{{row["work_type__Never_worked"]}}</td>
+                                            <td>{{row["work_type__Private"]}}</td>
+                                            <td>{{row["work_type__Self-employed"]}}</td>
+                                            <td>{{row["work_type__children"]}}</td>
+                                            <td>{{row["actual"]}}</td>
+                                            <td>{{row["predicted"]}}</td>
                                         </tr>
                                     {%endfor%}
                                   </tbody>
@@ -241,6 +257,10 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
     <script>
         $('#table-0').bootstrapTable({height:300,})
+        $('#table-1').bootstrapTable({height:300,})
+        $('#table-2').bootstrapTable({height:300,})
+        $('#table-3').bootstrapTable({height:300,})
+        $('#table-4').bootstrapTable({height:300,})
 
         document.querySelector("#btnEvaluasi").addEventListener("click",()=>{
             document.querySelector("#formEvaluasi").submit();
