@@ -2,6 +2,7 @@ from flask import Flask, render_template,request, url_for, redirect
 import pandas as pd 
 import json
 import mysql.connector
+import numpy as np
 
 app = Flask(__name__)
 
@@ -112,10 +113,60 @@ def preprocessing():
         mydb.close()
 
         dataframe = pd.DataFrame(dataset, columns=["gender","age","hypertension","heart_disease","ever_married","work_type","Residence_type","avg_glucose_level","bmi","smoking_status","stroke"])
-        print(dataframe)
+        
+        #dataframe["bmi"] = dataframe["bmi"].replace([-1],np.nan)
 
-        return "123"
-    return render_template("preprocessing.html")
+        cat = ['gender','ever_married','Residence_type','smoking_status','work_type']
+        for i in cat:
+            dummy = pd.get_dummies(dataframe[i],drop_first=True,prefix=f"{i}_")
+            dataframe = pd.concat([dataframe,dummy],axis=1)
+
+        dataframe = dataframe.drop([*cat],axis=1)
+
+        payload = []
+        for item in dataframe.itertuples():
+            payload.append(tuple(item)[1:])
+
+        mydb.connect()
+        cursor = mydb.cursor()
+        cursor.execute("DELETE FROM preprocessing")
+        cursor.executemany("INSERT INTO preprocessing VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",payload)
+        mydb.commit()
+        cursor.close()
+        mydb.close()
+
+        return redirect(url_for("preprocessing"))
+
+    mydb.connect()
+    cursor = mydb.cursor()
+    cursor.execute("SELECT * FROM preprocessing")
+    rows = cursor.fetchall()
+    cursor.close()
+    mydb.close()
+
+    data = []
+    for x in rows:
+        data.append({
+            "age":x[0],
+            "hypertension":x[1],
+            "heart_disease":x[2],
+            "avg_glucose_level":x[3],
+            "bmi":x[4],
+            "stroke":x[5],
+            "gender__Male":x[6],
+            "gender__Other":x[7],
+            "ever_married__Yes":x[8],
+            "Residence_type__Urban":x[9],
+            "smoking_status__formerly smoked":x[10],
+            "smoking_status__never smoked":x[11],
+            "smoking_status__smokes":x[12],
+            "work_type__Never_worked":x[13],
+            "work_type__Private":x[14],
+            "work_type__Self-employed":x[15],
+            "work_type__children":x[16],
+        })
+
+    return render_template("preprocessing.html", data=json.dumps(data))
 
 @app.route("/evaluasi")
 def evaluasi():

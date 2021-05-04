@@ -203,10 +203,15 @@
     <script src="https://modularcode.io/modular-admin-html/js/app.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
     <script>
+
+        let data = {{data | safe}}
+
         $('#table').bootstrapTable({
+        pagination:true,
+        height:500,
         columns: [{
-            field: 'id',
-            title: 'id'
+            field: 'age',
+            title: 'Age'
         },
         {
             field: 'hypertension',
@@ -245,7 +250,7 @@
             title: 'Residence Type - Urban'
         },
         {
-            field: 'smoking_status__formerly',
+            field: 'smoking_status__formerly smoked',
             title: 'Smoking Status - Formerly'
         },
         {
@@ -273,15 +278,7 @@
             title: 'Smoking Status - Children'
         },
         ],
-        data: [{
-            id: 1,
-            name: 'Item 1',
-            price: '$1'
-        }, {
-            id: 2,
-            name: 'Item 2',
-            price: '$2'
-        }]
+        data: data
         })
 
         document.querySelector("#btnImport").addEventListener("click",()=>{
