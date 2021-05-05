@@ -257,8 +257,72 @@ def evaluasi():
         return render_template("evaluasi.html",payload=enumerate(json_),testing=json_,fscore=fscore)
     return render_template("evaluasi.html")
 
-@app.route("/klasifikasi")
+@app.route("/klasifikasi", methods=["POST","GET"])
 def klasifikasi():
+    if request.method=="POST":
+        gender = request.form["gender"]
+        age = request.form["age"]
+        hypertension = request.form["hypertension"]
+        heartdisease = request.form["heartdisease"]
+        evermarried = request.form["evermarried"]
+        worktype = request.form["worktype"]
+        residencetype = request.form["residencetype"]
+        averageglucoselevel = request.form["averageglucoselevel"]
+        bmi = request.form["bmi"]
+        smokingstatus = request.form["smokingstatus"]
+
+
+        mydb.connect()
+        cursor = mydb.cursor()
+        cursor.execute("SELECT * FROM dataset")
+        dataset = cursor.fetchall()
+        cursor.close()
+        mydb.close()
+
+        dataframe = pd.DataFrame([*dataset,(gender,int(age),int(hypertension),int(heartdisease),evermarried,worktype,residencetype,float(averageglucoselevel),float(bmi),smokingstatus,"undefined")], columns=["gender","age","hypertension","heart_disease","ever_married","work_type","Residence_type","avg_glucose_level","bmi","smoking_status","stroke"])
+        
+        dataframe["bmi"] = dataframe["bmi"].replace([-1],np.nan)
+
+        cat = ['gender','ever_married','Residence_type','smoking_status','work_type']
+        for i in cat:
+            dummy = pd.get_dummies(dataframe[i],drop_first=True,prefix=f"{i}_")
+            dataframe = pd.concat([dataframe,dummy],axis=1)
+
+        dataframe = dataframe.drop([*cat],axis=1)
+
+        X = dataframe.drop('stroke',axis=1)
+        y = dataframe['stroke']
+
+        predictedsoon = X.iloc[len(X)-1]
+
+
+        #########################################################################################
+
+        dataframe = pd.DataFrame(dataset, columns=["gender","age","hypertension","heart_disease","ever_married","work_type","Residence_type","avg_glucose_level","bmi","smoking_status","stroke"])
+        
+        dataframe["bmi"] = dataframe["bmi"].replace([-1],np.nan)
+
+        cat = ['gender','ever_married','Residence_type','smoking_status','work_type']
+        for i in cat:
+            dummy = pd.get_dummies(dataframe[i],drop_first=True,prefix=f"{i}_")
+            dataframe = pd.concat([dataframe,dummy],axis=1)
+
+        dataframe = dataframe.drop([*cat],axis=1)
+
+        X = dataframe.drop('stroke',axis=1).values
+        y = dataframe['stroke'].values
+
+
+        imputer = KNNImputer(n_neighbors=2)
+        X_train = imputer.fit_transform(X)
+
+        clf = DecisionTreeClassifier()
+        clf.fit(X_train, y)
+
+
+        prediksi = clf.predict([predictedsoon])
+   
+        return render_template("klasifikasi.html",hasil=prediksi[0])
     return render_template("klasifikasi.html")
 
 if __name__=='__main__':

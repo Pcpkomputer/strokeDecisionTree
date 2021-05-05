@@ -99,7 +99,7 @@
                 BMI
                 Smoking
                 Stroke -->
-               <div style="margin-bottom:25px">
+               <form method="POST" action="" style="margin-bottom:25px">
                     <h1>Klasifikasi</h1>
                     <div style="margin-top:15px;margin-bottom:15px">
                         <p>Melakukan uji klasifikasi pada model yang telah dibangun...</p>
@@ -108,7 +108,7 @@
                     <div style="margin-top:10px;display:flex;flex-direction:column">
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Gender</label>
-                            <select name="gender" class="form-control" id="selectGender">
+                            <select  required name="gender" class="form-control" id="selectGender">
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                               <option value="Other">Other</option>
@@ -117,33 +117,33 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Age</label>
-                            <input name="age" type="number" class="form-control" id="exampleFormControlSelect1">
+                            <input required name="age" type="number" class="form-control" id="exampleFormControlSelect1">
                             </input>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Hypertension</label>
-                            <select name="hypertension" class="form-control" id="selectGender">
-                              <option>Yes</option>
-                              <option>No</option>
+                            <select required name="hypertension" class="form-control" id="selectGender">
+                              <option value="1">Yes</option>
+                              <option value="0">No</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Heart Disease</label>
-                            <select name="heartdisease" class="form-control" id="selectGender">
-                              <option value="Yes">Yes</option>
-                              <option value="No">No</option>
+                            <select required name="heartdisease" class="form-control" id="selectGender">
+                              <option value="1">Yes</option>
+                              <option value="0">No</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Ever Married</label>
-                            <select name="evermarried" class="form-control" id="selectGender">
+                            <select required name="evermarried" class="form-control" id="selectGender">
                               <option value="Yes">Yes</option>
                               <option value="No">No</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Work Type</label>
-                            <select name="worktype" class="form-control" id="selectGender">
+                            <select required name="worktype" class="form-control" id="selectGender">
                               <option value="Private">Private</option>
                               <option value="Self-employed">Self-employed</option>
                               <option value="Never Worked">Never Worked</option>
@@ -152,34 +152,43 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Residence Type</label>
-                            <select name="residencetype" class="form-control" id="selectGender">
+                            <select required name="residencetype" class="form-control" id="selectGender">
                               <option value="Urban">Urban</option>
                               <option value="Rural">Rural</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Average Glucose Level</label>
-                            <input name="averageglucoselevel" type="number" class="form-control" id="exampleFormControlSelect1">
+                            <input required name="averageglucoselevel" type="number" class="form-control" id="exampleFormControlSelect1">
                             </input>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">BMI</label>
-                            <input name="bmi" type="number" class="form-control" id="exampleFormControlSelect1">
+                            <input required name="bmi" type="number" class="form-control" id="exampleFormControlSelect1">
                             </input>
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Smoking Status</label>
-                            <select name="smokingstatus" class="form-control" id="selectGender">
-                              <option value="Formerly Smoked">Formerly Smoked</option>
-                              <option value="Never Smoked">Never Smoked</option>
-                              <option value="Smokes">Smokes</option>
+                            <select required name="smokingstatus" class="form-control" id="selectGender">
+                              <option value="formerly smoked">Formerly Smoked</option>
+                              <option value="never smoked">Never Smoked</option>
+                              <option value="smokes">Smokes</option>
                             </select>
                         </div>
-                        <div id="btnImport" class="opacity_dimmed" style="width:fit-content;background-color:#85ce36;cursor:pointer;color:white;justify-content: center;align-items: center;display: flex;padding:5px 10px">
+                        <button id="btnImport" type="submit" class="opacity_dimmed" style="border:none;width:fit-content;background-color:#85ce36;cursor:pointer;color:white;justify-content: center;align-items: center;display: flex;padding:5px 10px">
                             Evaluasi
+                        </button>
+                        {%if hasil==0%}
+                            <div style="margin-top:20px">
+                                <h1>Tidak berpotensi Stroke</h1>
+                            </div>
+                        {%elif hasil==1%}
+                        <div style="margin-top:20px">
+                            <h1>Berpotensi Stroke</h1>
                         </div>
+                        {%endif%}
                     </div>
-               </div>
+                </form>
                 
             </div>
             
@@ -279,6 +288,6 @@
     <script src="https://modularcode.io/modular-admin-html/js/app.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
     <script>
-    
+   
     </script>
 <input type="file" multiple="multiple" class="dz-hidden-input" style="visibility: hidden; position: absolute; top: 0px; left: 0px; height: 0px; width: 0px;"><div class="responsive-bootstrap-toolkit"><div class="device-xs 				  hidden-sm-up"></div><div class="device-sm hidden-xs-down hidden-md-up"></div><div class="device-md hidden-sm-down hidden-lg-up"></div><div class="device-lg hidden-md-down hidden-xl-up"></div><div class="device-xl hidden-lg-down			  "></div></div><div class="jqvmap-label" style="display: none;"></div><div class="jqvmap-label" style="display: none;"></div></body></html>
