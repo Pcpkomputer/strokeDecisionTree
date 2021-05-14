@@ -1,4 +1,4 @@
-from flask import Flask, render_template,request, url_for, redirect
+from flask import Flask, render_template,request, url_for, redirect, session
 import pandas as pd 
 import json
 import mysql.connector
@@ -10,6 +10,8 @@ from sklearn.metrics import f1_score
 
 app = Flask(__name__)
 
+app.secret_key="strokedecisiontreee"
+
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
@@ -18,8 +20,40 @@ mydb = mysql.connector.connect(
 )
 
 
+@app.route("/login", methods=["POST","GET"])
+def login():
+    if 'login' in session:
+        return redirect(url_for("index"))
+    
+    if request.method=="POST":
+        email = request.form["email"]
+        password = request.form["password"]
+
+        mydb.connect()
+        cursor = mydb.cursor()
+        cursor.execute("SELECT * FROM user WHERE user.email=%s",(email,))
+        result = cursor.fetchone()
+        cursor.close()
+        mydb.close()
+
+        if result==None:
+            return render_template("login.html",error="Akun tidak ditemukan...")
+        
+        u = result[1]
+        p = result[2]
+
+        if u==email and p==password:
+            session["login"]=True
+            return redirect(url_for("index"))
+        else:
+            return render_template("login.html",error="Login gagal...")
+
+    return render_template("login.html")
+
 @app.route("/", methods=["POST","GET"])
 def index():
+    if 'login' not in session:
+        return redirect(url_for("login"))
     if request.method=="POST" and request.files:
         try:
             dataset = pd.read_csv(request.files["dataset"])
@@ -107,6 +141,8 @@ def index():
 
 @app.route("/preprocessing", methods=["POST","GET"])
 def preprocessing():
+    if 'login' not in session:
+        return redirect(url_for("login"))
     if request.method=="POST":
 
         mydb.connect()
@@ -174,6 +210,8 @@ def preprocessing():
 
 @app.route("/evaluasi", methods=["GET","POST"])
 def evaluasi():
+    if 'login' not in session:
+        return redirect(url_for("login"))
     if request.method=="POST":
         mydb.connect()
         cursor = mydb.cursor()
@@ -259,6 +297,8 @@ def evaluasi():
 
 @app.route("/klasifikasi", methods=["POST","GET"])
 def klasifikasi():
+    if 'login' not in session:
+        return redirect(url_for("login"))
     if request.method=="POST":
         gender = request.form["gender"]
         age = request.form["age"]
